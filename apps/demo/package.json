@@ -1,0 +1,29 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "data-table": "workspace:*",
+    "next": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "autoprefixer": "^10.4.14",
+    "eslint-config-custom": "workspace:*",
+    "postcss": "^8.4.21",
+    "tailwind-config": "workspace:*",
+    "tailwindcss": "^3.2.7",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.2"
+  }
+}
