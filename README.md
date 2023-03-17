@@ -4,6 +4,9 @@ This is a demo example for a component library.
 
 The roadmap and acceptance criteria for the component example `DataTable` can be found in [this issue](https://github.com/pixelmord/demo-component-library/issues/1)
 
+A preview of the demo app can be found here: [DEMO](https://demo-component-library.vercel.app/).
+A Storybook of the components can be found here: [Storybook](https://demo-component-library-docs.vercel.app/).
+
 ## What's inside?
 
 This [Turborepo](https://turbo.build) includes the following packages/apps:
