@@ -7,6 +7,10 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
     "check-types": {},
     "dev": {
       "cache": false,
@@ -14,6 +18,9 @@
     },
     "clean": {
       "cache": false
+    },
+    "type-check": {
+      "outputs": []
     }
   }
 }
