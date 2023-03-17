@@ -1,0 +1,24 @@
+{
+  "name": "demo-test-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "watch": "watch \"playwright test --quiet --reporter=list\" src ../../apps/demo/src",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "test:e2e": "playwright test --reporter=list"
+  },
+  "dependencies": {
+    "demo": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.29.2",
+    "@types/eslint": "^8.4.10",
+    "@types/node": "^18.11.9",
+    "@types/watch": "^1.0.3",
+    "eslint": "^8.31.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.2",
+    "watch": "^1.0.2"
+  }
+}
