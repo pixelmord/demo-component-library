@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Install playwright
-      - run: pnpm dlx playwright install
+        run: pnpm dlx playwright install
 
       - name: Build
         run: pnpm build
