@@ -6,17 +6,34 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "start": "turbo run start",
     "dev": "turbo run dev --no-cache --continue",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "prepare": "husky install",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "turbo run type-check"
+  },
+  "lint-staged": {
+    "apps/**/*.{js,ts,tsx,md,mdx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "packages/**/*.{js,ts,tsx,md,mdx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@types/eslint": "^8.21.2",
     "@types/prettier": "^2.7.2",
     "eslint": "^8.36.0",
     "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "prettier": "^2.8.4",
     "prettier-config": "workspace:*",
     "turbo": "latest"
