@@ -6,14 +6,28 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
+    "start": {
+      "dependsOn": ["build"]
+    },
     "lint": {},
-    "check-types": {},
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "test:e2e": {},
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "watch": {
       "cache": false,
       "persistent": true
     },
     "clean": {
       "cache": false
+    },
+    "type-check": {
+      "outputs": []
     }
   }
 }

@@ -1,0 +1,17 @@
+node_modules
+.next
+/public
+!/public/manifest.json
+/**/**/node_modules
+/**/**/.next
+/**/**/public
+!/**/**/public/manifest.json
+
+*.lock
+*.log
+
+.gitignore
+.npmignore
+.prettierignore
+.DS_Store
+.eslintignore
