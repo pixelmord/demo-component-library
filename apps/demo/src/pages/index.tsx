@@ -1,23 +1,57 @@
 import Head from 'next/head';
-import { Table } from 'data-table';
+import { Table, TableProps } from 'data-table';
+import { FC, ReactElement } from 'react';
 
-const data = [
-  {
-    firstName: 'Kermit',
-    lastName: 'Muppet',
-    age: 55,
-  },
-  {
-    firstName: 'MS. Piggy',
-    lastName: 'Muppet',
-    age: 22,
-  },
-  {
-    firstName: 'Swedish Chef',
-    lastName: 'Muppet',
-    age: 24,
-  },
-];
+const TestTable: FC<TableProps> = (props) => {
+  const columns: { header: string | ReactElement; accessor: string }[] = [
+    {
+      header: 'First Name',
+      accessor: 'firstName',
+    },
+    {
+      header: 'Last Name',
+      accessor: 'lastName',
+    },
+    {
+      header: <span className="text-blue-500">Age</span>,
+      accessor: 'age',
+    },
+  ];
+  const data: Record<string, string | number>[] = [
+    {
+      firstName: 'Kermit',
+      lastName: 'Muppet',
+      age: 55,
+    },
+    {
+      firstName: 'MS. Piggy',
+      lastName: 'Muppet',
+      age: 22,
+    },
+    {
+      firstName: 'Swedish Chef',
+      lastName: 'Muppet',
+    },
+  ];
+  return (
+    <Table {...props}>
+      <Table.Head>
+        {columns.map((col, index) => (
+          <Table.HeadCell key={index}>{col.header}</Table.HeadCell>
+        ))}
+      </Table.Head>
+      <Table.Body className="divide-y">
+        {data.map((datum, index) => (
+          <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            {columns.map((col, index) => (
+              <Table.Cell key={index}>{datum[col.accessor]}</Table.Cell>
+            ))}
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+};
 
 export default function Home() {
   return (
@@ -34,7 +68,7 @@ export default function Home() {
           </span>
         </h1>
         <div className="mx-auto mt-5 max-w-xl sm:flex sm:justify-center md:mt-8">
-          <Table data={data} />
+          <TestTable striped />
         </div>
       </main>
     </div>
