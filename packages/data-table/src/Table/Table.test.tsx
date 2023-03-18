@@ -16,7 +16,7 @@ describe('Components / Table', () => {
 
     const rows = screen.getAllByTestId('table-row-element');
 
-    expect(rows.length).toEqual(5);
+    expect(rows.length).toEqual(3);
     expect(rows[0].className as string).toContain(
       'odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700'
     );
@@ -27,7 +27,7 @@ describe('Components / Table', () => {
 
     const rows = screen.getAllByTestId('table-row-element');
 
-    expect(rows.length).toEqual(5);
+    expect(rows.length).toEqual(3);
     expect(rows[0].className).toContain('hover:bg-gray-50 dark:hover:bg-gray-600');
   });
 });
