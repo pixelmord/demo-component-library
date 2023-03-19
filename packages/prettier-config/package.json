@@ -2,7 +2,7 @@
   "name": "prettier-config",
   "version": "0.0.0",
   "private": true,
-  "main": "prettier.config.cjs",
+  "main": "index.js",
   "devDependencies": {
     "@types/prettier": "^2.7.2",
     "prettier": "^2.8.4",

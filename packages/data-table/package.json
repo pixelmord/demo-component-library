@@ -41,5 +41,8 @@
     "tsconfig": "workspace:*",
     "tsup": "^6.6.3",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "tailwind-merge": "^1.10.0"
   }
 }
