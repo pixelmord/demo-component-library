@@ -5,7 +5,7 @@ import { Pagination } from '../Pagination';
 type Column = { header: string | ReactElement; key: string | number };
 type Datum = Record<Key, ReactElement>;
 
-export type DataTableProps = SelectableTableProps & {
+export type DataTableProps = Omit<SelectableTableProps, 'children'> & {
   totalItems: number;
   itemsPerPage: number;
   fetcher: (skip: number, take: number) => Promise<any>;
