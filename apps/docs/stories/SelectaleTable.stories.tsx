@@ -17,7 +17,7 @@ type Args = {
   data: Record<string, string | number>[];
   columns: { header: string | ReactElement; key: string }[];
 };
-const TableTemplate: Story = (args: Args) => {
+const TableTemplate: Story = (args: any) => {
   const { data, columns, ...props } = args;
   return (
     <SelectableTable {...props}>
