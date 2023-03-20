@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { SelectableTable, Table, TableProps } from 'data-table';
+import { SelectableTable, Table, TableProps, DataTable } from 'data-table';
 import { FC, ReactElement, RefObject, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 type Column = { header: string | ReactElement; key: string };
@@ -69,10 +69,13 @@ type User = {
 export default function Home({ users }) {
   const [otherUsers, setUsers] = useState<User[] | null>(null);
 
-  const handleGetUsers = () => {
-    fetch('https://my.backend/users?take=10&skip=10')
+  const handleGetUsers = (skip, take) => {
+    fetch(`https://my.backend/users?take=${take}&skip=${skip}`)
       .then((res) => res.json())
       .then(setUsers);
+  };
+  const fetcher = (skip, take) => {
+    return fetch(`https://my.backend/users?take=${take}&skip=${skip}`).then((res) => res.json());
   };
 
   return (
@@ -120,7 +123,7 @@ export default function Home({ users }) {
           <h3>Multiselect</h3>
           <button
             className="group flex h-min items-center justify-center border border-transparent bg-gray-800 p-0.5 text-center font-medium text-white hover:bg-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-300 disabled:hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:disabled:hover:bg-gray-800"
-            onClick={() => handleGetUsers()}
+            onClick={() => handleGetUsers(0, 10)}
           >
             Get Users
           </button>
@@ -136,6 +139,10 @@ export default function Home({ users }) {
               )}
             </SelectableTable.Body>
           </SelectableTable>
+          <h3>Data Table with Multiple Select and Server Pagination</h3>
+          <div className="not-prose">
+            <DataTable totalItems={100} itemsPerPage={10} fetcher={fetcher} initialData={users} columns={columns} />
+          </div>
         </div>
       </main>
     </div>
