@@ -1,14 +1,16 @@
-import type { ComponentProps, FC, PropsWithChildren } from 'react';
+import { ComponentProps, FC, PropsWithChildren, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface TableHeadCellProps extends PropsWithChildren, ComponentProps<'th'> {}
-export const TableHeadCell: FC<TableHeadCellProps> = ({ children, className, ...props }) => {
-  const classString = twMerge('px-6 py-3', className);
-  return (
-    <th className={classString} {...props}>
-      {children}
-    </th>
-  );
-};
-
+export const TableHeadCell = forwardRef<HTMLTableCellElement, TableHeadCellProps>(
+  ({ children, className, ...props }, ref) => {
+    const classString = twMerge('px-6 py-3', className);
+    return (
+      <th ref={ref} className={classString} {...props}>
+        {children}
+      </th>
+    );
+  }
+);
+TableHeadCell.displayName = 'TableHeadCell';
 export default TableHeadCell;

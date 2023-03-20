@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import type { FC, ReactElement } from 'react';
+import type { FC, ReactElement, Ref } from 'react';
 
 import type { TableProps } from './Table';
 import { Table } from './Table';
@@ -32,7 +32,7 @@ describe('Components / Table', () => {
   });
 });
 
-const TestTable: FC<TableProps> = (props) => {
+const TestTable: FC<TableProps & { ref?: Ref<HTMLTableElement> }> = (props) => {
   const columns: { header: string | ReactElement; accessor: string }[] = [
     {
       header: 'First Name',
@@ -67,9 +67,11 @@ const TestTable: FC<TableProps> = (props) => {
   return (
     <Table {...props}>
       <Table.Head>
-        {columns.map((col, index) => (
-          <Table.HeadCell key={index}>{col.header}</Table.HeadCell>
-        ))}
+        <Table.HeadRow>
+          {columns.map((col, index) => (
+            <Table.HeadCell key={index}>{col.header}</Table.HeadCell>
+          ))}
+        </Table.HeadRow>
       </Table.Head>
       <Table.Body className="divide-y">
         {data.map((datum, index) => (

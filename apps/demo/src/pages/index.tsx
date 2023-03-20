@@ -1,50 +1,58 @@
 import Head from 'next/head';
-import { Table, TableProps } from 'data-table';
-import { FC, ReactElement } from 'react';
-
-const TestTable: FC<TableProps> = (props) => {
-  const columns: { header: string | ReactElement; accessor: string }[] = [
-    {
-      header: 'First Name',
-      accessor: 'firstName',
-    },
-    {
-      header: 'Last Name',
-      accessor: 'lastName',
-    },
-    {
-      header: <span className="text-blue-500">Age</span>,
-      accessor: 'age',
-    },
-  ];
-  const data: Record<string, string | number>[] = [
-    {
-      firstName: 'Kermit',
-      lastName: 'Muppet',
-      age: 55,
-    },
-    {
-      firstName: 'MS. Piggy',
-      lastName: 'Muppet',
-      age: 22,
-    },
-    {
-      firstName: 'Swedish Chef',
-      lastName: 'Muppet',
-    },
-  ];
+import { SelectableTable, Table, TableProps } from 'data-table';
+import { FC, ReactElement, RefObject } from 'react';
+import { toast } from 'react-hot-toast';
+type Column = { header: string | ReactElement; key: string };
+const columns: Column[] = [
+  {
+    header: 'First Name',
+    key: 'firstName',
+  },
+  {
+    header: 'Last Name',
+    key: 'lastName',
+  },
+  {
+    header: <span className="text-blue-500">Age</span>,
+    key: 'age',
+  },
+];
+type Datum = Record<string, string | number>;
+const data: Datum[] = [
+  {
+    id: 1,
+    firstName: 'Kermit',
+    lastName: 'Muppet',
+    age: 55,
+  },
+  {
+    id: 2,
+    firstName: 'MS. Piggy',
+    lastName: 'Muppet',
+    age: 22,
+  },
+  {
+    id: 3,
+    firstName: 'Swedish Chef',
+    lastName: 'Muppet',
+    age: 24,
+  },
+];
+const TestTable: FC<TableProps & { ref?: RefObject<HTMLTableElement> }> = (props) => {
   return (
     <Table {...props}>
       <Table.Head>
-        {columns.map((col, index) => (
-          <Table.HeadCell key={index}>{col.header}</Table.HeadCell>
-        ))}
+        <Table.HeadRow>
+          {columns.map((col, index) => (
+            <Table.HeadCell key={index}>{col.header}</Table.HeadCell>
+          ))}
+        </Table.HeadRow>
       </Table.Head>
       <Table.Body className="divide-y">
         {data.map((datum, index) => (
           <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
             {columns.map((col, index) => (
-              <Table.Cell key={index}>{datum[col.accessor]}</Table.Cell>
+              <Table.Cell key={index}>{datum[col.key]}</Table.Cell>
             ))}
           </Table.Row>
         ))}
@@ -67,8 +75,48 @@ export default function Home() {
             Demo
           </span>
         </h1>
-        <div className="mx-auto mt-5 max-w-xl sm:flex sm:justify-center md:mt-8">
+        <div className="prose mx-auto mt-5 max-w-xl dark:prose-invert sm:flex sm:flex-col sm:justify-center md:mt-8">
+          <h2>Regular Table</h2>
+          <p>
+            This table implementation is for static content and can be configured to be styled as <em>striped</em> or{' '}
+            <em>hoverable</em> or both
+          </p>
           <TestTable striped />
+          <hr className="my-3" />
+          <h2>Selectable Table</h2>
+          <p>This selectable table is a11y conform with a data-grid implementation, rows/cells can be selected</p>
+          <h3>Singleselect</h3>
+          <SelectableTable
+            selectionMode="single"
+            onRowAction={(key) => {
+              const rowData = data.find((datum) => datum.id === key);
+              toast('Selected row: ' + JSON.stringify(rowData));
+            }}
+          >
+            <SelectableTable.Head columns={columns}>
+              {(column: Column) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
+            </SelectableTable.Head>
+            <SelectableTable.Body items={data}>
+              {(item: Datum) => (
+                <SelectableTable.Row>
+                  {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+                </SelectableTable.Row>
+              )}
+            </SelectableTable.Body>
+          </SelectableTable>
+          <h3>Multiselect</h3>
+          <SelectableTable selectionMode="multiple">
+            <SelectableTable.Head columns={columns}>
+              {(column: Column) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
+            </SelectableTable.Head>
+            <SelectableTable.Body items={data}>
+              {(item: Datum) => (
+                <SelectableTable.Row>
+                  {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+                </SelectableTable.Row>
+              )}
+            </SelectableTable.Body>
+          </SelectableTable>
         </div>
       </main>
     </div>
