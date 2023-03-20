@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { SelectableTable, Table, TableProps, DataTable } from 'data-table';
-import { FC, ReactElement, RefObject, useEffect, useState } from 'react';
+import { FC, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 type Column = { header: string | ReactElement; key: string };
 const columns: Column[] = [
@@ -66,13 +66,13 @@ type User = {
   lastName: string;
   age: number;
 };
-export default function Home({ users }) {
-  const [otherUsers, setUsers] = useState<User[] | null>(null);
+export default function Home() {
+  const [otherUsers, setOtherUsers] = useState<User[]>([]);
 
   const handleGetUsers = (skip, take) => {
     fetch(`https://my.backend/users?take=${take}&skip=${skip}`)
       .then((res) => res.json())
-      .then(setUsers);
+      .then(setOtherUsers);
   };
   const fetcher = (skip, take) => {
     return fetch(`https://my.backend/users?take=${take}&skip=${skip}`).then((res) => res.json());
@@ -105,14 +105,14 @@ export default function Home({ users }) {
           <SelectableTable
             selectionMode="single"
             onRowAction={(key) => {
-              const rowData = users.find((datum) => datum.id === key);
+              const rowData = otherUsers.find((datum) => datum.id === key);
               toast('Selected row: ' + JSON.stringify(rowData));
             }}
           >
             <SelectableTable.Head columns={columns}>
               {(column: Column) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
             </SelectableTable.Head>
-            <SelectableTable.Body items={users}>
+            <SelectableTable.Body items={otherUsers}>
               {(item: Datum) => (
                 <SelectableTable.Row>
                   {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
@@ -141,21 +141,25 @@ export default function Home({ users }) {
           </SelectableTable>
           <h3>Data Table with Multiple Select and Server Pagination</h3>
           <div className="not-prose">
-            <DataTable totalItems={100} itemsPerPage={10} fetcher={fetcher} initialData={users} columns={columns} />
+            {otherUsers.length > 0 ? (
+              <DataTable
+                totalItems={100}
+                itemsPerPage={10}
+                fetcher={fetcher}
+                initialData={otherUsers}
+                columns={columns}
+              />
+            ) : (
+              <button
+                className="group flex h-min items-center justify-center border border-transparent bg-gray-800 p-0.5 text-center font-medium text-white hover:bg-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-300 disabled:hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:disabled:hover:bg-gray-800"
+                onClick={() => handleGetUsers(0, 10)}
+              >
+                Get Users
+              </button>
+            )}
           </div>
         </div>
       </main>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch('https://my.backend/users?take=10&skip=0');
-  const users = await res.json();
-
-  return {
-    props: {
-      users,
-    },
-  };
 }
