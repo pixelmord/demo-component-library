@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import { SelectableTable } from 'data-table';
-import { ReactElement } from 'react';
+import { Key, ReactElement } from 'react';
 const meta: Meta<typeof SelectableTable> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/7.0/react/configure/overview#configure-story-loading
@@ -14,8 +14,8 @@ export default meta;
 type Story = StoryFn<typeof SelectableTable>;
 
 type Args = {
-  data: Record<string, string | number>[];
-  columns: { header: string | ReactElement; key: string }[];
+  data: Record<Key, ReactElement>[];
+  columns: { header: string | ReactElement; key: Key }[];
 };
 const TableTemplate: Story = (args: any) => {
   const { data, columns, ...props } = args;
@@ -27,7 +27,7 @@ const TableTemplate: Story = (args: any) => {
       <SelectableTable.Body items={data}>
         {(item: Args['data'][number]) => (
           <SelectableTable.Row>
-            {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+            {(columnKey: Key) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
           </SelectableTable.Row>
         )}
       </SelectableTable.Body>
@@ -86,7 +86,7 @@ Striped.args = {
 export const Hoverable: Story = TableTemplate.bind({});
 Hoverable.args = {
   ...Default.args,
-  onRowAction: (key) => alert(`Opening item ${key}...`),
+  onRowAction: (key: Key) => alert(`Opening item ${key}...`),
   striped: true,
   hoverable: true,
 };

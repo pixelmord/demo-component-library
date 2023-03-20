@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import { Table } from 'data-table';
-import { ReactElement } from 'react';
+import { Table, TableProps } from 'data-table';
+import { Key, ReactElement, RefObject } from 'react';
 const meta: Meta<typeof Table> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/7.0/react/configure/overview#configure-story-loading
@@ -13,9 +13,10 @@ const meta: Meta<typeof Table> = {
 export default meta;
 type Story = StoryFn<typeof Table>;
 
-type Args = {
+type Args = TableProps & {
   data: Record<string, string | number>[];
-  columns: { header: string | ReactElement; accessor: string }[];
+  columns: { header: string | ReactElement; accessor: Key }[];
+  ref?: RefObject<HTMLTableElement>;
 };
 const TableTemplate: Story = (args: Args) => {
   const { data, columns, ...props } = args;

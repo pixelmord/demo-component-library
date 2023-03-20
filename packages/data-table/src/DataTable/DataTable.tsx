@@ -1,9 +1,9 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, Key, ReactElement, useState } from 'react';
 import { SelectableTable, SelectableTableProps } from '../SelectableTable';
 import { Pagination } from '../Pagination';
 
 type Column = { header: string | ReactElement; key: string | number };
-type Datum = Record<string, string | number>;
+type Datum = Record<Key, ReactElement>;
 
 export type DataTableProps = SelectableTableProps & {
   totalItems: number;
@@ -36,7 +36,7 @@ export const DataTable: FC<DataTableProps> = ({
         <SelectableTable.Body items={data}>
           {(item: Datum) => (
             <SelectableTable.Row>
-              {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+              {(columnKey: Key) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
             </SelectableTable.Row>
           )}
         </SelectableTable.Body>
