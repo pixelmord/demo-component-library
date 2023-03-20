@@ -55,7 +55,7 @@ export const Pagination: FC<PaginationProps> = ({
                 currentPage === page &&
                   'bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
               )}
-              onClick={goToPreviousPage}
+              onClick={() => onPageChange(page)}
             >
               {page}
             </button>

@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import { Table } from 'data-table';
-import { ReactElement } from 'react';
+import { Table, TableProps } from 'data-table';
+import { Key, ReactElement, RefObject } from 'react';
 const meta: Meta<typeof Table> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/7.0/react/configure/overview#configure-story-loading
@@ -13,14 +13,48 @@ const meta: Meta<typeof Table> = {
 export default meta;
 type Story = StoryFn<typeof Table>;
 
-type Args = {
+type Args = TableProps & {
   data: Record<string, string | number>[];
-  columns: { header: string | ReactElement; accessor: string }[];
+  columns: { header: string | ReactElement; accessor: Key }[];
+  ref?: RefObject<HTMLTableElement>;
 };
-const TableTemplate: Story = (args: Args) => {
-  const { data, columns, ...props } = args;
+const TableTemplate: Story = (args) => {
+  const columns = [
+    {
+      header: 'First Name',
+      key: 'firstName',
+    },
+    {
+      header: 'Last Name',
+      key: 'lastName',
+    },
+    {
+      header: <span className="text-blue-500">Age</span>,
+      key: 'age',
+    },
+  ];
+  const data: Record<string, string | number>[] = [
+    {
+      id: 1,
+      firstName: 'Kermit',
+      lastName: 'Muppet',
+      age: 55,
+    },
+    {
+      id: 2,
+      firstName: 'MS. Piggy',
+      lastName: 'Muppet',
+      age: 22,
+    },
+    {
+      id: 3,
+      firstName: 'Swedish Chef',
+      lastName: 'Muppet',
+      age: 24,
+    },
+  ];
   return (
-    <Table {...props}>
+    <Table {...args}>
       <Table.Head>
         <Table.HeadRow>
           {columns.map((col, index) => (
@@ -32,7 +66,7 @@ const TableTemplate: Story = (args: Args) => {
         {data.map((datum, index) => (
           <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
             {columns.map((col, index) => (
-              <Table.Cell key={index}>{datum[col.accessor]}</Table.Cell>
+              <Table.Cell key={index}>{datum[col.key]}</Table.Cell>
             ))}
           </Table.Row>
         ))}
@@ -46,37 +80,6 @@ export const Default: Story = TableTemplate.bind({});
 Default.args = {
   striped: false,
   hoverable: false,
-  columns: [
-    {
-      header: 'First Name',
-      accessor: 'firstName',
-    },
-    {
-      header: 'Last Name',
-      accessor: 'lastName',
-    },
-    {
-      header: <span className="text-blue-500">Age</span>,
-      accessor: 'age',
-    },
-  ],
-  data: [
-    {
-      firstName: 'Kermit',
-      lastName: 'Muppet',
-      age: 55,
-    },
-    {
-      firstName: 'MS. Piggy',
-      lastName: 'Muppet',
-      age: 22,
-    },
-    {
-      firstName: 'Swedish Chef',
-      lastName: 'Muppet',
-      age: 24,
-    },
-  ],
 };
 
 export const Striped: Story = TableTemplate.bind({});

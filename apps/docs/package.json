@@ -5,8 +5,8 @@
   "scripts": {
     "build": "storybook build",
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "dev": "storybook dev -p 6006",
-    "start": "PORT=3008 serve storybook-static"
+    "dev": "storybook dev -p 6006 -s public",
+    "start": "PORT=3008 serve storybook-static -s public"
   },
   "dependencies": {
     "data-table": "workspace:*",
@@ -26,10 +26,15 @@
     "@vitejs/plugin-react": "^3.1.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.11",
+    "msw": "^1.1.0",
+    "msw-storybook-addon": "^1.8.0",
     "serve": "^14.2.0",
     "storybook": "^7.0.0-rc.4",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.2",
     "vite": "^4.2.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

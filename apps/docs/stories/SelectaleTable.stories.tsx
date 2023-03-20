@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import { SelectableTable } from 'data-table';
-import { ReactElement } from 'react';
+import { SelectableTable, SelectableTableProps } from 'data-table';
+import { Key, ReactElement } from 'react';
 const meta: Meta<typeof SelectableTable> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/7.0/react/configure/overview#configure-story-loading
@@ -13,35 +13,8 @@ const meta: Meta<typeof SelectableTable> = {
 export default meta;
 type Story = StoryFn<typeof SelectableTable>;
 
-type Args = {
-  data: Record<string, string | number>[];
-  columns: { header: string | ReactElement; key: string }[];
-};
-const TableTemplate: Story = (args: Args) => {
-  const { data, columns, ...props } = args;
-  return (
-    <SelectableTable {...props}>
-      <SelectableTable.Head columns={columns}>
-        {(column: Args['columns'][number]) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
-      </SelectableTable.Head>
-      <SelectableTable.Body items={data}>
-        {(item: Args['data'][number]) => (
-          <SelectableTable.Row>
-            {(columnKey: string) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
-          </SelectableTable.Row>
-        )}
-      </SelectableTable.Body>
-    </SelectableTable>
-  );
-};
-
-export const Default: Story = TableTemplate.bind({});
-
-Default.args = {
-  striped: false,
-  hoverable: false,
-  selectionMode: 'single',
-  columns: [
+const TableTemplate: Story = (args) => {
+  const columns = [
     {
       header: 'First Name',
       key: 'firstName',
@@ -54,8 +27,8 @@ Default.args = {
       header: <span className="text-blue-500">Age</span>,
       key: 'age',
     },
-  ],
-  data: [
+  ];
+  const data: Record<string, string | number>[] = [
     {
       id: 1,
       firstName: 'Kermit',
@@ -74,7 +47,29 @@ Default.args = {
       lastName: 'Muppet',
       age: 24,
     },
-  ],
+  ];
+  return (
+    <SelectableTable {...args}>
+      <SelectableTable.Head columns={columns}>
+        {(column) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
+      </SelectableTable.Head>
+      <SelectableTable.Body items={data}>
+        {(item) => (
+          <SelectableTable.Row>
+            {(columnKey) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+          </SelectableTable.Row>
+        )}
+      </SelectableTable.Body>
+    </SelectableTable>
+  );
+};
+
+export const Default: Story = TableTemplate.bind({});
+
+Default.args = {
+  striped: false,
+  hoverable: false,
+  selectionMode: 'single',
 };
 
 export const Striped: Story = TableTemplate.bind({});
@@ -86,7 +81,7 @@ Striped.args = {
 export const Hoverable: Story = TableTemplate.bind({});
 Hoverable.args = {
   ...Default.args,
-  onRowAction: (key) => alert(`Opening item ${key}...`),
+  onRowAction: (key: Key) => alert(`Opening item ${key}...`),
   striped: true,
   hoverable: true,
 };

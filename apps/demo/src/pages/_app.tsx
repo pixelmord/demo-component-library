@@ -3,12 +3,15 @@ import '../styles/globals.css';
 import 'data-table/styles.css';
 import { Toaster } from 'react-hot-toast';
 
+import('../mocks');
+
 import type { AppProps } from 'next/app';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Component {...pageProps} />
+
       <Toaster />
     </>
   );
