@@ -12,8 +12,7 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "dev": "tsc -w",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test": "jest"
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
