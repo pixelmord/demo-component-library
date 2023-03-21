@@ -10,23 +10,7 @@ const db = factory({
     age: Number,
   },
 });
-// const users: boolean[] = [];
-// users.length = 101;
-// users.fill(true).forEach(() =>
 
-// );
-// const user = {
-//   id: 'user-1',
-//   firstName: faker.name.firstName(),
-//   lastName: faker.name.lastName(),
-//   age: 11,
-// };
-// db.user.create({
-//   id: '1',
-//   firstName: faker.name.firstName(),
-//   lastName: faker.name.lastName(),
-//   age: 11,
-// });
 let count = 100;
 while (count--) {
   db.user.create({

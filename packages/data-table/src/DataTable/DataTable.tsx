@@ -45,6 +45,7 @@ export const DataTable: FC<DataTableProps> = ({
         totalPages={totalItems / itemsPerPage}
         currentPage={currentPage}
         onPageChange={(page) => handlePageChange(page)}
+        className="mx-auto"
       />
     </>
   );

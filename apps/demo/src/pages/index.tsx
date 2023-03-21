@@ -68,7 +68,7 @@ type User = {
 };
 export default function Home() {
   const [otherUsers, setOtherUsers] = useState<User[]>([]);
-
+  console.log(otherUsers);
   const handleGetUsers = (skip, take) => {
     fetch(`https://my.backend/users?take=${take}&skip=${skip}`)
       .then((res) => res.json())

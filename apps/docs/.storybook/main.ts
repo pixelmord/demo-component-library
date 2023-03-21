@@ -18,6 +18,10 @@ const config: StorybookConfig = {
             find: 'data-table',
             replacement: path.resolve(__dirname, '../../../packages/data-table/'),
           },
+          {
+            find: 'msw-handlers',
+            replacement: path.resolve(__dirname, '../../../packages/msw-handlers/'),
+          },
         ],
       },
     };

@@ -22,7 +22,7 @@ export const Pagination: FC<PaginationProps> = ({
   totalPages,
   ...props
 }) => {
-  const classString = twMerge('my-3', className);
+  const classString = twMerge('my-3 text-center', className);
   const firstPage = Math.max(1, currentPage - 3);
   const lastPage = Math.min(currentPage + 3, totalPages);
 

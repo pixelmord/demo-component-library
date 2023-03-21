@@ -7,7 +7,7 @@
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
-    "dev": "turbo run dev --no-cache --continue",
+    "dev": "turbo run dev --no-cache --continue --concurrency=12",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "prepare": "husky install",
@@ -35,7 +35,7 @@
     "husky": "^8.0.3",
     "hygen": "^6.2.11",
     "lint-staged": "^13.2.0",
-    "prettier": "^2.8.5",
+    "prettier": "^2.8.6",
     "prettier-config": "workspace:*",
     "turbo": "latest"
   },

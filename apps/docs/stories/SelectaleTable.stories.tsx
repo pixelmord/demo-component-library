@@ -13,7 +13,7 @@ const meta: Meta<typeof SelectableTable> = {
 export default meta;
 type Story = StoryFn<typeof SelectableTable>;
 
-const TableTemplate: Story = (args) => {
+const TableTemplate: Story = (args: SelectableTableProps) => {
   const columns = [
     {
       header: 'First Name',
@@ -51,12 +51,14 @@ const TableTemplate: Story = (args) => {
   return (
     <SelectableTable {...args}>
       <SelectableTable.Head columns={columns}>
-        {(column) => <SelectableTable.Column>{column.header}</SelectableTable.Column>}
+        {(column: { header: string | ReactElement; key: string }) => (
+          <SelectableTable.Column>{column.header}</SelectableTable.Column>
+        )}
       </SelectableTable.Head>
       <SelectableTable.Body items={data}>
-        {(item) => (
+        {(item: Record<string, string | number>) => (
           <SelectableTable.Row>
-            {(columnKey) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
+            {(columnKey: Key) => <SelectableTable.Cell>{item[columnKey]}</SelectableTable.Cell>}
           </SelectableTable.Row>
         )}
       </SelectableTable.Body>
@@ -72,14 +74,14 @@ Default.args = {
   selectionMode: 'single',
 };
 
-export const Striped: Story = TableTemplate.bind({});
-Striped.args = {
+export const MultipleSelection: Story = TableTemplate.bind({});
+MultipleSelection.args = {
   ...Default.args,
   selectionMode: 'multiple',
   striped: true,
 };
-export const Hoverable: Story = TableTemplate.bind({});
-Hoverable.args = {
+export const ClickableRows: Story = TableTemplate.bind({});
+ClickableRows.args = {
   ...Default.args,
   onRowAction: (key: Key) => alert(`Opening item ${key}...`),
   striped: true,
