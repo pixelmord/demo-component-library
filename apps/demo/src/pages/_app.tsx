@@ -4,14 +4,15 @@ import 'data-table/styles.css';
 import { Toaster } from 'react-hot-toast';
 
 import('../mocks');
-
+import { SSRProvider } from 'data-table';
 import type { AppProps } from 'next/app';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} />
-
+      <SSRProvider>
+        <Component {...pageProps} />
+      </SSRProvider>
       <Toaster />
     </>
   );
