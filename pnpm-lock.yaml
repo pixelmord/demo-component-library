@@ -174,11 +174,14 @@ importers:
       demo: workspace:*
       eslint: ^8.31.0
       eslint-config-custom: workspace:*
+      msw-handlers: workspace:*
+      playwright-msw: ^2.2.1
       tsconfig: workspace:*
       typescript: ^5.0.2
       watch: ^1.0.2
     dependencies:
       demo: link:../../apps/demo
+      msw-handlers: link:../msw-handlers
     devDependencies:
       '@playwright/test': 1.31.2
       '@types/eslint': 8.21.3
@@ -186,6 +189,7 @@ importers:
       '@types/watch': 1.0.3
       eslint: 8.36.0
       eslint-config-custom: link:../eslint-config-custom
+      playwright-msw: 2.2.1_3ywvwxp4kiapf42p3wfqg6vik4
       tsconfig: link:../tsconfig
       typescript: 5.0.2
       watch: 1.0.2
@@ -10281,6 +10285,19 @@ packages:
     resolution: {integrity: sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ==}
     engines: {node: '>=14'}
     hasBin: true
+    dev: true
+
+  /playwright-msw/2.2.1_3ywvwxp4kiapf42p3wfqg6vik4:
+    resolution: {integrity: sha512-LjT68LWqzJX8boy4KbnPp5ACLf7WDpt6RUem0tQQcQKys+45KNlluzBx8HEl1HNiCBYV/XZw1aI1aD2giKXWRg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@playwright/test': '>=1.20.0'
+      msw: '>=0.47.3'
+    dependencies:
+      '@mswjs/cookies': 0.2.2
+      '@playwright/test': 1.31.2
+      msw: 1.1.1_typescript@5.0.2
+      strict-event-emitter: 0.4.6
     dev: true
 
   /pluralize/8.0.0:

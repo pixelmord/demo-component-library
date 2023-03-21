@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "watch": "watch \"playwright test --quiet --reporter=list\" src ../../apps/demo/src",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test:e2e": "playwright test --reporter=list"
+    "test:e2e": "playwright test --reporter=list",
+    "watch": "watch \"playwright test --quiet --reporter=list\" src ../../apps/demo/src"
   },
   "dependencies": {
-    "demo": "workspace:*"
+    "demo": "workspace:*",
+    "msw-handlers": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.29.2",
@@ -17,6 +18,7 @@
     "@types/watch": "^1.0.3",
     "eslint": "^8.31.0",
     "eslint-config-custom": "workspace:*",
+    "playwright-msw": "^2.2.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.2",
     "watch": "^1.0.2"
