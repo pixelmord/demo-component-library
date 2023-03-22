@@ -12,7 +12,7 @@ import { GridNode } from '@react-types/grid';
 
 export type SelectableTableProps = TableStateProps<object> & AriaTableProps<object> & TableProps;
 const SelectableTableComponent: FC<SelectableTableProps> = (props) => {
-  let { selectionMode, selectionBehavior } = props;
+  let { selectionMode, selectionBehavior, striped, hoverable } = props;
   let state = useTableState({
     ...props,
     showSelectionCheckboxes: selectionMode === 'multiple' && selectionBehavior !== 'replace',
@@ -24,7 +24,7 @@ const SelectableTableComponent: FC<SelectableTableProps> = (props) => {
 
   return (
     <SSRProvider>
-      <Table {...gridProps} ref={ref} style={{ borderCollapse: 'collapse' }}>
+      <Table {...gridProps} striped={striped} hoverable={hoverable} ref={ref} style={{ borderCollapse: 'collapse' }}>
         <Table.Head>
           {collection.headerRows.map((headerRow) => (
             <SelectableTableHeadRow key={headerRow.key} item={headerRow} state={state}>
