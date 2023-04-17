@@ -1,5 +1,16 @@
 # Component Library Demo
 
+🗄  *****************************************************************  🗄  
+  
+❌   This repo is archived, further development will happen            
+❌   in this repo: [https://github.com/pixelmord/mono-proto-raptor](https://github.com/pixelmord/mono-proto-raptor)  
+  
+🗄  *****************************************************************  🗄  
+
+
+--
+-- 
+
 This is a demo example for a component library.
 
 The roadmap and acceptance criteria for the component example `DataTable` can be found in [this issue](https://github.com/pixelmord/demo-component-library/issues/1)
